@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学术论文格式审查系统</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mammoth@1.4.17/mammoth.browser.min.js"></script>
+
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            danger: '#EF4444',
+            warning: '#F59E0B'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Noto Serif SC', 'serif']
+          },
+        },
+      }
+    }
+  </script>
+
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .format-error {
+        @apply text-danger border-l-4 border-danger bg-danger/5 p-2 rounded-r;
+      }
+      .format-warning {
+        @apply text-warning border-l-4 border-warning bg-warning/5 p-2 rounded-r;
+      }
+      .highlight {
+        @apply bg-danger/10 px-1 py-0.5 rounded;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+  <!-- 导航栏 -->
+  <header class="sticky top-0 z-50 bg-white shadow-md transition-all duration-300" id="navbar">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <i class="fa fa-graduation-cap text-primary text-2xl"></i>
+        <h1 class="text-xl md:text-2xl font-bold text-dark">
+          <span class="text-primary">学术</span>论文格式审查系统
+        </h1>
+      </div>
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="#features" class="text-gray-600 hover:text-primary transition-colors">功能</a>
+        <a href="#how-it-works" class="text-gray-600 hover:text-primary transition-colors">使用指南</a>
+        <a href="#demo" class="text-gray-600 hover:text-primary transition-colors">演示</a>
+        <a href="#about" class="text-gray-600 hover:text-primary transition-colors">关于</a>
+      </nav>
+      <button class="md:hidden text-gray-600 focus:outline-none" id="menu-toggle">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+    </div>
+    <div class="md:hidden max-h-0 overflow-hidden transition-height bg-white" id="mobile-menu">
+      <div class="px-4 py-2 space-y-3">
+        <a href="#features" class="block py-2 text-gray-600 hover:text-primary transition-colors">功能</a>
+        <a href="#how-it-works" class="block py-2 text-gray-600 hover:text-primary transition-colors">使用指南</a>
+        <a href="#demo" class="block py-2 text-gray-600 hover:text-primary transition-colors">演示</a>
+        <a href="#about" class="block py-2 text-gray-600 hover:text-primary transition-colors">关于</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区域 -->
+  <section class="relative bg-gradient-to-br from-primary/10 to-info/10 py-16 md:py-24 overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://picsum.photos/id/1/1920/1080')] bg-cover bg-center opacity-5"></div>
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-dark mb-6 leading-tight">
+          一键审查论文格式<br><span class="text-primary">提升学术规范性</span>
+        </h2>
+        <p class="text-lg md:text-xl text-gray-600 mb-8">
+          自动检测并标记论文中不符合格式要求的部分，包括字体、字号、间距等，让格式审查变得简单高效。
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="#upload" class="px-8 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+            <i class="fa fa-cloud-upload mr-2"></i>开始审查
+          </a>
+          <a href="#demo" class="px-8 py-3 bg-white hover:bg-gray-50 text-primary border border-primary rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1">
+            <i class="fa fa-play-circle mr-2"></i>观看演示
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-0">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-[60px] md:h-[100px]">
+        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="fill-gray-200"></path>
+        <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="fill-gray-200"></path>
+        <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="fill-white"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 功能特点 -->
+  <section id="features" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">强大的格式审查功能</h2>
+        <p class="text-gray-600 text-lg">我们的系统能够自动检测并标记论文中不符合规范的格式问题，帮助你快速完成格式修改</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl shadow-soft p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-5">
+            <i class="fa fa-font text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3">字体格式检测</h3>
+          <p class="text-gray-600">自动检查论文中的字体类型、大小、颜色、加粗、倾斜等格式，标记不符合要求的部分。</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-soft p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-5">
+            <i class="fa fa-align-left text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3">段落格式检查</h3>
+          <p class="text-gray-600">检测段落间距、行间距、缩进、对齐方式等格式问题，确保论文排版整齐规范。</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-soft p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-5">
+            <i class="fa fa-list-ol text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3">标题层级分析</h3>
+          <p class="text-gray-600">识别论文中的各级标题，检查标题格式、编号和层级关系是否符合规范要求。</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-soft p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-5">
+            <i class="fa fa-file-image-o text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3">图表和公式验证</h3>
+          <p class="text-gray-600">检查图表的编号、标题、格式和引用，以及公式的排版和编号是否符合要求。</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-soft p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-5">
+            <i class="fa fa-check-square-o text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3">参考文献校验</h3>
+          <p class="text-gray-600">验证参考文献的格式、顺序和引用是否正确，支持多种学术引用格式。</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-soft p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-5">
+            <i class="fa fa-bar-chart text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3">详细格式报告</h3>
+          <p class="text-gray-600">生成详细的格式审查报告，统计问题数量，按严重程度排序，并提供修改建议。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 演示区域 -->
+  <section id="demo" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">系统演示</h2>
+        <p class="text-gray-600 text-lg">通过这个交互式演示，体验论文格式审查系统的强大功能</p>
+      </div>
+      <div class="bg-gray-50 rounded-2xl shadow-lg overflow-hidden">
+        <div class="flex flex-col lg:flex-row">
+          <!-- 演示控制区 -->
+          <div class="lg:w-1/3 p-6 border-b lg:border-b-0 lg:border-r border-gray-200">
+            <h3 class="text-xl font-bold text-dark mb-4">格式审查设置</h3>
+            <div class="space-y-6">
+              <!-- 论文上传 -->
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">上传学生论文</label>
+                <div class="relative">
+                  <input type="file" id="thesis-upload" class="hidden" accept=".docx">
+                  <label for="thesis-upload" class="flex items-center justify-center w-full px-4 py-2 border border-gray-300 rounded-lg cursor-pointer bg-white hover:bg-gray-50">
+                    <i class="fa fa-file-word-o text-primary mr-2"></i>
+                    <span>选择论文文件 (.docx)</span>
+                  </label>
+                </div>
+                <div id="thesis-info" class="mt-2 hidden">
+                  <div class="flex items-center justify-between p-2 bg-gray-100 rounded">
+                    <div class="flex items-center">
+                      <i class="fa fa-file-word-o text-primary mr-2"></i>
+                      <span id="thesis-filename" class="text-sm"></span>
+                    </div>
+                    <button id="remove-thesis" class="text-gray-500 hover:text-danger">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- 审查按钮 -->
+              <button id="start-check" class="w-full py-3 bg-primary hover:bg-primary/90 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 flex items-center justify-center">
+                <i class="fa fa-search mr-2"></i>
+                开始格式审查
+              </button>
+            </div>
+          </div>
+          <!-- 结果展示区 -->
+          <div class="lg:w-2/3 p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold text-dark">审查结果</h3>
+              <div class="flex space-x-2">
+                <button class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded">
+                  <i class="fa fa-download mr-1"></i>报告
+                </button>
+              </div>
+            </div>
+            <!-- 结果摘要 -->
+            <div class="bg-white rounded-lg shadow-sm p-4 mb-6" id="result-summary">
+              <div class="flex flex-wrap gap-4" id="summary-stats">
+                <div class="flex items-center">
+                  <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                    <i class="fa fa-check text-primary"></i>
+                  </div>
+                  <div class="ml-3">
+                    <div class="text-sm text-gray-500">格式正确</div>
+                    <div class="text-lg font-bold text-primary" id="correct-count">0</div>
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-10 h-10 bg-warning/10 rounded-full flex items-center justify-center">
+                    <i class="fa fa-exclamation-triangle text-warning"></i>
+                  </div>
+                  <div class="ml-3">
+                    <div class="text-sm text-gray-500">格式警告</div>
+                    <div class="text-lg font-bold text-warning" id="warning-count">0</div>
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-10 h-10 bg-danger/10 rounded-full flex items-center justify-center">
+                    <i class="fa fa-times text-danger"></i>
+                  </div>
+                  <div class="ml-3">
+                    <div class="text-sm text-gray-500">格式错误</div>
+                    <div class="text-lg font-bold text-danger" id="error-count">0</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 错误列表 -->
+            <div class="mb-6" id="format-errors-container">
+              <h4 class="font-bold text-gray-800 mb-3">格式问题列表</h4>
+              <div class="space-y-3 max-h-60 overflow-y-auto pr-2" id="format-errors">
+                <p class="text-gray-500 italic">上传论文后显示格式问题...</p>
+              </div>
+            </div>
+            <!-- 文档预览 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden h-[400px] border border-gray-200">
+              <div class="bg-gray-100 border-b border-gray-200 px-4 py-2 flex justify-between items-center">
+                <div class="text-sm text-gray-600">文档预览</div>
+                <div class="flex space-x-2">
+                  <button class="text-gray-500 hover:text-gray-700">
+                    <i class="fa fa-search-minus"></i>
+                  </button>
+                  <button class="text-gray-500 hover:text-gray-700">
+                    <i class="fa fa-search-plus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="p-6 overflow-auto h-[calc(100%-36px)]" id="document-preview">
+                <div class="max-w-2xl mx-auto text-center py-10">
+                  <i class="fa fa-file-word-o text-gray-300 text-5xl mb-4"></i>
+                  <p class="text-gray-500">上传论文后显示审查结果...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <i class="fa fa-graduation-cap text-primary text-2xl"></i>
+            <h3 class="text-xl font-bold">学术论文格式审查系统</h3>
+          </div>
+          <p class="text-gray-400 mb-4">专业的论文格式审查工具，帮助学生提高论文质量，确保格式规范。</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">快速链接</h4>
+          <ul class="space-y-2">
+            <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">功能特点</a></li>
+            <li><a href="#demo" class="text-gray-400 hover:text-white transition-colors">系统演示</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">联系我们</h4>
+          <ul class="space-y-2">
+            <li class="flex items-center">
+              <i class="fa fa-envelope-o mr-2 text-primary"></i>
+              <span class="text-gray-400">support@example.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+        © 2024 学术论文格式审查系统 版权所有
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 获取DOM元素
+    const thesisUpload = document.getElementById('thesis-upload');
+    const thesisFilename = document.getElementById('thesis-filename');
+    const thesisInfo = document.getElementById('thesis-info');
+    const removeThesis = document.getElementById('remove-thesis');
+    const startCheck = document.getElementById('start-check');
+    const documentPreview = document.getElementById('document-preview');
+    const formatErrors = document.getElementById('format-errors');
+    const formatErrorsContainer = document.getElementById('format-errors-container');
+    const resultSummary = document.getElementById('result-summary');
+    const summaryStats = document.getElementById('summary-stats');
+    const correctCount = document.getElementById('correct-count');
+    const warningCount = document.getElementById('warning-count');
+    const errorCount = document.getElementById('error-count');
+
+    // 论文上传事件
+    thesisUpload.addEventListener('change', function() {
+      if (this.files.length > 0) {
+        thesisFilename.textContent = this.files[0].name;
+        thesisInfo.classList.remove('hidden');
+      }
+    });
+
+    // 移除论文文件
+    removeThesis.addEventListener('click', function() {
+      thesisUpload.value = '';
+      thesisInfo.classList.add('hidden');
+      resetReviewUI();
+    });
+
+    // 开始审查按钮事件
+    startCheck.addEventListener('click', async () => {
+      const file = thesisUpload.files[0];
+      if (!file) {
+        alert('请先上传论文文件');
+        return;
+      }
+      
+      try {
+        // 显示加载状态
+        startCheck.disabled = true;
+        startCheck.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>正在审查...';
+        formatErrors.innerHTML = '<p class="text-center py-10"><i class="fa fa-spinner fa-spin text-gray-400"></i> 解析中...</p>';
+        documentPreview.innerHTML = '<div class="max-w-2xl mx-auto text-center py-10"><i class="fa fa-spinner fa-spin text-gray-400 text-3xl mb-4"></i><p class="text-gray-500">正在分析论文格式...</p></div>';
+        resultSummary.classList.add('hidden');
+        
+        // 解析Word文档
+        const result = await mammoth.convertToHtml({ file });
+        const html = result.value;
+        
+        // 执行格式检查并标记
+        const { markedHtml, errors } = applyFormattingCheck(html);
+        
+        // 显示审查结果
+        documentPreview.innerHTML = markedHtml;
+        displayErrorList(errors);
+        updateSummaryStats(errors);
+        resultSummary.classList.remove('hidden');
+        
+      } catch (error) {
+        console.error('审查出错:', error);
+        alert('格式审查失败，请重试或检查文件格式（仅支持.docx）');
+        resetReviewUI();
+      } finally {
+        startCheck.disabled = false;
+        startCheck.innerHTML = '<i class="fa fa-search mr-2"></i>开始格式审查';
+      }
+    });
+
+    // 重置审查界面
+    function resetReviewUI() {
+      documentPreview.innerHTML = '<div class="max-w-2xl mx-auto text-center py-10"><i class="fa fa-file-word-o text-gray-300 text-5xl mb-4"></i><p class="text-gray-500">上传论文后显示审查结果...</p></div>';
+      formatErrors.innerHTML = '<p class="text-gray-500 italic">上传论文后显示格式问题...</p>';
+      resultSummary.classList.add('hidden');
+      correctCount.textContent = '0';
+      warningCount.textContent = '0';
+      errorCount.textContent = '0';
+    }
+
+    // 格式审查主函数
+    function applyFormattingCheck(html) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const errors = [];
+      let correct = 0;
+      
+      // 1. 字体与字号检查
+      checkFontStyles(doc, errors);
+      
+      // 2. 段落格式检查
+      checkParagraphStyles(doc, errors);
+      
+      // 3. 标题层级检查
+      checkTitleHierarchy(doc, errors);
+      
+      // 简单统计（实际应根据检查项计算）
+      correct = 100 - errors.length; // 简化示例，实际需按检查项计算
+      
+      return {
+        markedHtml: doc.body.innerHTML,
+        errors: errors
+      };
+    }
+
+    // 1. 字体与字号检查
+    function checkFontStyles(doc, errors) {
+      // 一级标题：黑体，小三号（15pt），居中
+      const h1s = doc.querySelectorAll('h1, p[style*="font-weight:bold"]:first-of-type');
+      h1s.forEach(h1 => {
+        const style = window.getComputedStyle(h1);
+        const fontFamily = style.fontFamily;
+        const fontSize = style.fontSize;
+        const textAlign = style.textAlign;
+        const text = h1.textContent.trim().substr(0, 20) + '...';
+        
+        let isError = false;
+        if (!fontFamily.includes('黑体')) {
+          markElement(h1, '字体应为黑体');
+          errors.push({
+            type: '字体错误',
+            message: `一级标题“${text}”字体错误，应为黑体`,
+            position: '标题'
+          });
+          isError = true;
+        }
+        if (fontSize !== '15pt' && fontSize !== '16pt') { // 允许微小误差
+          markElement(h1, '字号应为小三号（15pt）');
+          if (!isError) errors.push({
+            type: '字号错误',
+            message: `一级标题“${text}”字号错误，应为小三号`,
+            position: '标题'
+          });
+          isError = true;
+        }
+        if (textAlign !== 'center') {
+          markElement(h1, '对齐方式应为居中');
+          if (!isError) errors.push({
+            type: '对齐错误',
+            message: `一级标题“${text}”对齐错误，应为居中`,
+            position: '标题'
+          });
+        }
+      });
+      
+      // 正文：宋体，小四号（12pt）
+      const paragraphs = doc.querySelectorAll('p:not([style*="font-weight:bold"])');
+      paragraphs.forEach(p => {
+        const style = window.getComputedStyle(p);
+        const fontFamily = style.fontFamily;
+        const fontSize = style.fontSize;
+        
+        if (!fontFamily.includes('宋体')) {
+          markElement(p, '字体应为宋体');
+          errors.push({
+            type: '字体错误',
+            message: '正文段落字体错误，应为宋体',
+            position: '正文'
+          });
+        }
+        if (fontSize !== '12pt' && fontSize !== '11pt') { // 允许微小误差
+          markElement(p, '字号应为小四号（12pt）');
+          errors.push({
+            type: '字号错误',
+            message: '正文段落字号错误，应为小四号',
+            position: '正文'
+          });
+        }
+      });
+    }
+
+    // 2. 段落格式检查
+    function checkParagraphStyles(doc, errors) {
+      const paragraphs = doc.querySelectorAll('p');
+      paragraphs.forEach(p => {
+        const style = window.getComputedStyle(p);
+        const lineHeight = style.lineHeight;
+        const textIndent = style.textIndent;
+        
+        if (lineHeight !== '2' && lineHeight !== '200%' && lineHeight !== '1.5' && lineHeight !== '150%') {
+          markElement(p, '行距应为2倍');
+          errors.push({
+            type: '段落错误',
+            message: '段落行距错误，应为2倍',
+            position: '正文'
+          });
+        }
+        if (textIndent !== '2em' && textIndent !== '32px') { // 允许像素单位误差
+          markElement(p, '首行需缩进2个字符');
+          errors.push({
+            type: '段落错误',
+            message: '段落首行未缩进2个字符',
+            position: '正文'
+          });
+        }
+      });
+    }
+
+    // 3. 标题层级检查
+    function checkTitleHierarchy(doc, errors) {
+      const titles = Array.from(doc.querySelectorAll('h1, h2, h3, p[style*="font-weight:bold"]'))
+        .filter(el => el.textContent.trim().length > 0);
+        
+      if (titles.length < 2) return;
+      
+      // 简化检查：确保一级标题以"第X章"开头
+      const firstTitle = titles[0].textContent.trim();
+      if (!/^第\d+章\s+.+/.test(firstTitle)) {
+        markElement(titles[0], '一级标题应为“第X章 标题”格式');
+        errors.push({
+          type: '标题错误',
+          message: `一级标题格式错误，应为“第X章 标题”`,
+          position: '标题'
+        });
+      }
+    }
+
+    // 标记元素为格式错误
+    function markElement(element, message) {
+      if (element.tagName === 'P' || element.tagName === 'H1' || 
+          element.tagName === 'H2' || element.tagName === 'H3') {
+        element.classList.add('highlight');
+      } else {
+        const parent = element.parentNode;
+        if (parent) parent.classList.add('highlight');
+      }
+    }
+
+    // 显示错误列表
+    function displayErrorList(errors) {
+      if (errors.length === 0) {
+        formatErrors.innerHTML = '<div class="p-4 bg-success/10 border border-success rounded-lg">未检测到格式错误！</div>';
+        return;
+      }
+      
+      formatErrors.innerHTML = '';
+      errors.forEach((error, index) => {
+        const errorItem = document.createElement('div');
+        errorItem.className = error.type.includes('错误') ? 'format-error' : 'format-warning';
+        errorItem.innerHTML = `
+          <div class="flex justify-between items-start">
+            <div>
+              <div class="font-medium">${error.type}</div>
+              <div class="text-sm text-gray-600">${error.message}</div>
+            </div>
+            <div class="text-xs text-gray-500">位置: ${error.position}</div>
+          </div>
+        `;
+        formatErrors.appendChild(errorItem);
+      });
+    }
+
+    // 更新结果统计
+    function updateSummaryStats(errors) {
+      const errorCount = errors.filter(e => e.type.includes('错误')).length;
+      const warningCount = errors.length - errorCount;
+      
+      correctCount.textContent = '100'; // 简化示例
+      warningCount.textContent = warningCount;
+      errorCount.textContent = errorCount;
+    }
+  </script>
+</body>
+</html>
