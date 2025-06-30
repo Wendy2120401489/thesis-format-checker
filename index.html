@@ -1,0 +1,1041 @@
+<html lang="zh-CN"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学术论文格式审查系统</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mammoth@1.4.17/mammoth.browser.min.js"></script>
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#6B7280',
+            success: '#10B981',
+            warning: '#F59E0B',
+            danger: '#EF4444',
+            info: '#3B82F6',
+            light: '#F3F4F6',
+            dark: '#1F2937'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Noto Serif SC', 'serif']
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .transition-height {
+        transition: max-height 0.3s ease-in-out;
+      }
+      .shadow-soft {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      }
+      .border-gradient {
+        border-image: linear-gradient(to right, #165DFF, #3B82F6) 1;
+      }
+      .bg-glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+  <!-- 导航栏 -->
+  <header class="sticky top-0 z-50 bg-white shadow-md transition-all duration-300" id="navbar">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <i class="fa fa-graduation-cap text-primary text-2xl"></i>
+        <h1 class="text-xl md:text-2xl font-bold text-dark">
+          <span class="text-primary">学术</span>论文格式审查系统
+        </h1>
+      </div>
+      
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="#features" class="text-gray-600 hover:text-primary transition-colors">功能</a>
+        <a href="#how-it-works" class="text-gray-600 hover:text-primary transition-colors">使用指南</a>
+        <a href="#demo" class="text-gray-600 hover:text-primary transition-colors">演示</a>
+        <a href="#about" class="text-gray-600 hover:text-primary transition-colors">关于</a>
+      </nav>
+      
+      <button class="md:hidden text-gray-600 focus:outline-none" id="menu-toggle">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端菜单 -->
+    <div class="md:hidden max-h-0 overflow-hidden transition-height bg-white" id="mobile-menu">
+      <div class="px-4 py-2 space-y-3">
+        <a href="#features" class="block py-2 text-gray-600 hover:text-primary transition-colors">功能</a>
+        <a href="#how-it-works" class="block py-2 text-gray-600 hover:text-primary transition-colors">使用指南</a>
+        <a href="#demo" class="block py-2 text-gray-600 hover:text-primary transition-colors">演示</a>
+        <a href="#about" class="block py-2 text-gray-600 hover:text-primary transition-colors">关于</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区域 -->
+  <section class="relative bg-gradient-to-br from-primary/10 to-info/10 py-16 md:py-24 overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://picsum.photos/id/1/1920/1080')] bg-cover bg-center opacity-5"></div>
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-dark mb-6 leading-tight">
+          一键审查论文格式<br><span class="text-primary">提升学术规范性</span>
+        </h2>
+        <p class="text-lg md:text-xl text-gray-600 mb-8">
+          自动检测并标记论文中不符合格式要求的部分，包括字体、字号、间距等，让格式审查变得简单高效。
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="#upload" class="px-8 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+            <i class="fa fa-cloud-upload mr-2"></i>开始审查
+          </a>
+          <a href="#demo" class="px-8 py-3 bg-white hover:bg-gray-50 text-primary border border-primary rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1">
+            <i class="fa fa-play-circle mr-2"></i>观看演示
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 装饰元素 -->
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-0">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-[60px] md:h-[100px]">
+        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="fill-gray-200"></path>
+        <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="fill-gray-200"></path>
+        <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="fill-white"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 功能特点 -->
+  <section id="features" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">强大的格式审查功能</h2>
+        <p class="text-gray-600 text-lg">我们的系统能够自动检测并标记论文中不符合规范的格式问题，帮助你快速完成格式修改</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 功能卡片 1 -->
+        <div class="bg-white rounded-xl shadow-soft p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-5">
+            <i class="fa fa-font text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3">字体格式检测</h3>
+          <p class="text-gray-600">自动检查论文中的字体类型、大小、颜色、加粗、倾斜等格式，标记不符合要求的部分。</p>
+        </div>
+        
+        <!-- 功能卡片 2 -->
+        <div class="bg-white rounded-xl shadow-soft p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-5">
+            <i class="fa fa-align-left text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3">段落格式检查</h3>
+          <p class="text-gray-600">检测段落间距、行间距、缩进、对齐方式等格式问题，确保论文排版整齐规范。</p>
+        </div>
+        
+        <!-- 功能卡片 3 -->
+        <div class="bg-white rounded-xl shadow-soft p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-5">
+            <i class="fa fa-list-ol text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3">标题层级分析</h3>
+          <p class="text-gray-600">识别论文中的各级标题，检查标题格式、编号和层级关系是否符合规范要求。</p>
+        </div>
+        
+        <!-- 功能卡片 4 -->
+        <div class="bg-white rounded-xl shadow-soft p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-5">
+            <i class="fa fa-file-image-o text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3">图表和公式验证</h3>
+          <p class="text-gray-600">检查图表的编号、标题、格式和引用，以及公式的排版和编号是否符合要求。</p>
+        </div>
+        
+        <!-- 功能卡片 5 -->
+        <div class="bg-white rounded-xl shadow-soft p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-5">
+            <i class="fa fa-check-square-o text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3">参考文献校验</h3>
+          <p class="text-gray-600">验证参考文献的格式、顺序和引用是否正确，支持多种学术引用格式。</p>
+        </div>
+        
+        <!-- 功能卡片 6 -->
+        <div class="bg-white rounded-xl shadow-soft p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-5">
+            <i class="fa fa-bar-chart text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3">详细格式报告</h3>
+          <p class="text-gray-600">生成详细的格式审查报告，统计问题数量，按严重程度排序，并提供修改建议。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 使用指南 -->
+  <section id="how-it-works" class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">三步完成格式审查</h2>
+        <p class="text-gray-600 text-lg">简单易用的操作流程，无需专业知识，轻松完成论文格式审查</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- 步骤 1 -->
+        <div class="bg-white rounded-xl shadow-soft p-6 relative">
+          <div class="absolute -top-4 -left-4 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold text-lg">1</div>
+          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-5 mx-auto">
+            <i class="fa fa-upload text-primary text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3 text-center">上传标准模板</h3>
+          <p class="text-gray-600 text-center">首先上传包含格式要求的标准模板文件，系统将提取其中的格式规范作为审查依据。</p>
+        </div>
+        
+        <!-- 步骤 2 -->
+        <div class="bg-white rounded-xl shadow-soft p-6 relative">
+          <div class="absolute -top-4 -left-4 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold text-lg">2</div>
+          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-5 mx-auto">
+            <i class="fa fa-file-word-o text-primary text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3 text-center">上传学生论文</h3>
+          <p class="text-gray-600 text-center">上传需要进行格式审查的学生论文Word文档，系统将自动分析文档内容。</p>
+        </div>
+        
+        <!-- 步骤 3 -->
+        <div class="bg-white rounded-xl shadow-soft p-6 relative">
+          <div class="absolute -top-4 -left-4 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold text-lg">3</div>
+          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-5 mx-auto">
+            <i class="fa fa-search text-primary text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-3 text-center">查看审查结果</h3>
+          <p class="text-gray-600 text-center">系统将显示标记了所有格式问题的文档，提供详细报告，并支持直接在浏览器中进行修改。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 演示区域 -->
+  <section id="demo" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">系统演示</h2>
+        <p class="text-gray-600 text-lg">通过这个交互式演示，体验论文格式审查系统的强大功能</p>
+      </div>
+      
+      <div class="bg-gray-50 rounded-2xl shadow-lg overflow-hidden">
+        <div class="flex flex-col lg:flex-row">
+          <!-- 演示控制区 -->
+          <div class="lg:w-1/3 p-6 border-b lg:border-b-0 lg:border-r border-gray-200">
+            <h3 class="text-xl font-bold text-dark mb-4">格式审查设置</h3>
+            
+            <div class="space-y-6">
+              <!-- 模板上传 -->
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">上传标准模板</label>
+                <div class="relative">
+                  <input type="file" id="template-upload" class="hidden" accept=".docx">
+                  <label for="template-upload" class="flex items-center justify-center w-full px-4 py-2 border border-gray-300 rounded-lg cursor-pointer bg-white hover:bg-gray-50">
+                    <i class="fa fa-file-word-o text-primary mr-2"></i>
+                    <span>选择模板文件 (.docx)</span>
+                  </label>
+                </div>
+                <div id="template-info" class="mt-2 hidden">
+                  <div class="flex items-center justify-between p-2 bg-gray-100 rounded">
+                    <div class="flex items-center">
+                      <i class="fa fa-file-word-o text-primary mr-2"></i>
+                      <span id="template-filename" class="text-sm"></span>
+                    </div>
+                    <button id="remove-template" class="text-gray-500 hover:text-danger">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 论文上传 -->
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">上传学生论文</label>
+                <div class="relative">
+                  <input type="file" id="thesis-upload" class="hidden" accept=".docx">
+                  <label for="thesis-upload" class="flex items-center justify-center w-full px-4 py-2 border border-gray-300 rounded-lg cursor-pointer bg-white hover:bg-gray-50">
+                    <i class="fa fa-file-word-o text-primary mr-2"></i>
+                    <span>选择论文文件 (.docx)</span>
+                  </label>
+                </div>
+                <div id="thesis-info" class="mt-2 hidden">
+                  <div class="flex items-center justify-between p-2 bg-gray-100 rounded">
+                    <div class="flex items-center">
+                      <i class="fa fa-file-word-o text-primary mr-2"></i>
+                      <span id="thesis-filename" class="text-sm"></span>
+                    </div>
+                    <button id="remove-thesis" class="text-gray-500 hover:text-danger">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 审查选项 -->
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">审查选项</label>
+                <div class="space-y-2">
+                  <label class="flex items-center">
+                    <input type="checkbox" checked="" class="form-checkbox h-5 w-5 text-primary rounded">
+                    <span class="ml-2 text-gray-700">字体格式检查</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="checkbox" checked="" class="form-checkbox h-5 w-5 text-primary rounded">
+                    <span class="ml-2 text-gray-700">段落格式检查</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="checkbox" checked="" class="form-checkbox h-5 w-5 text-primary rounded">
+                    <span class="ml-2 text-gray-700">标题层级检查</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="checkbox" checked="" class="form-checkbox h-5 w-5 text-primary rounded">
+                    <span class="ml-2 text-gray-700">图表和公式检查</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="checkbox" checked="" class="form-checkbox h-5 w-5 text-primary rounded">
+                    <span class="ml-2 text-gray-700">参考文献检查</span>
+                  </label>
+                </div>
+              </div>
+              
+              <!-- 审查按钮 -->
+              <button id="start-check" class="w-full py-3 bg-primary hover:bg-primary/90 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 flex items-center justify-center">
+                <i class="fa fa-search mr-2"></i>
+                开始格式审查
+              </button>
+            </div>
+          </div>
+          
+          <!-- 结果展示区 -->
+          <div class="lg:w-2/3 p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold text-dark">审查结果</h3>
+              <div class="flex space-x-2">
+                <button class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded">
+                  <i class="fa fa-download mr-1"></i>报告
+                </button>
+                <button class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded">
+                  <i class="fa fa-file-word-o mr-1"></i>导出
+                </button>
+              </div>
+            </div>
+            
+            <!-- 结果摘要 -->
+            <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+              <div class="flex flex-wrap gap-4">
+                <div class="flex items-center">
+                  <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                    <i class="fa fa-check text-primary"></i>
+                  </div>
+                  <div class="ml-3">
+                    <div class="text-sm text-gray-500">格式正确</div>
+                    <div class="text-lg font-bold text-primary">245</div>
+                  </div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="w-10 h-10 bg-warning/10 rounded-full flex items-center justify-center">
+                    <i class="fa fa-exclamation-triangle text-warning"></i>
+                  </div>
+                  <div class="ml-3">
+                    <div class="text-sm text-gray-500">格式警告</div>
+                    <div class="text-lg font-bold text-warning">12</div>
+                  </div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="w-10 h-10 bg-danger/10 rounded-full flex items-center justify-center">
+                    <i class="fa fa-times text-danger"></i>
+                  </div>
+                  <div class="ml-3">
+                    <div class="text-sm text-gray-500">格式错误</div>
+                    <div class="text-lg font-bold text-danger">8</div>
+                  </div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="w-10 h-10 bg-info/10 rounded-full flex items-center justify-center">
+                    <i class="fa fa-info-circle text-info"></i>
+                  </div>
+                  <div class="ml-3">
+                    <div class="text-sm text-gray-500">检查项</div>
+                    <div class="text-lg font-bold text-info">265</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 问题列表 -->
+            <div class="mb-6">
+              <h4 class="font-bold text-gray-800 mb-3">格式问题列表</h4>
+              <div class="space-y-3 max-h-60 overflow-y-auto pr-2">
+                <div class="p-3 bg-danger/5 border-l-4 border-danger rounded-r">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <div class="font-medium text-danger">字体错误</div>
+                      <div class="text-sm text-gray-600">摘要部分使用了宋体，应为黑体</div>
+                    </div>
+                    <div class="text-xs text-gray-500">第 3 页</div>
+                  </div>
+                </div>
+                
+                <div class="p-3 bg-warning/5 border-l-4 border-warning rounded-r">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <div class="font-medium text-warning">段落格式警告</div>
+                      <div class="text-sm text-gray-600">第一章段落间距为1.5倍，应为2倍</div>
+                    </div>
+                    <div class="text-xs text-gray-500">第 5 页</div>
+                  </div>
+                </div>
+                
+                <div class="p-3 bg-danger/5 border-l-4 border-danger rounded-r">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <div class="font-medium text-danger">标题错误</div>
+                      <div class="text-sm text-gray-600">二级标题"1.2"使用了四号字，应为小三号</div>
+                    </div>
+                    <div class="text-xs text-gray-500">第 8 页</div>
+                  </div>
+                </div>
+                
+                <div class="p-3 bg-warning/5 border-l-4 border-warning rounded-r">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <div class="font-medium text-warning">图表格式警告</div>
+                      <div class="text-sm text-gray-600">图2.1标题使用了中文标点，应为英文标点</div>
+                    </div>
+                    <div class="text-xs text-gray-500">第 12 页</div>
+                  </div>
+                </div>
+                
+                <div class="p-3 bg-danger/5 border-l-4 border-danger rounded-r">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <div class="font-medium text-danger">参考文献错误</div>
+                      <div class="text-sm text-gray-600">参考文献[5]格式不符合GB/T 7714-2015标准</div>
+                    </div>
+                    <div class="text-xs text-gray-500">第 25 页</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 文档预览 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden h-[400px] border border-gray-200">
+              <div class="bg-gray-100 border-b border-gray-200 px-4 py-2 flex justify-between items-center">
+                <div class="text-sm text-gray-600">文档预览</div>
+                <div class="flex space-x-2">
+                  <button class="text-gray-500 hover:text-gray-700">
+                    <i class="fa fa-search-minus"></i>
+                  </button>
+                  <button class="text-gray-500 hover:text-gray-700">
+                    <i class="fa fa-search-plus"></i>
+                  </button>
+                  <button class="text-gray-500 hover:text-gray-700">
+                    <i class="fa fa-arrows-alt"></i>
+                  </button>
+                </div>
+              </div>
+              
+              <div class="p-6 overflow-auto h-[calc(100%-36px)]" id="document-preview">
+                <div class="max-w-2xl mx-auto">
+                  <h1 class="text-2xl font-bold text-center mb-8">学术论文标题</h1>
+                  
+                  <div class="text-center mb-8">
+                    <p class="font-medium">作者姓名</p>
+                    <p class="text-sm text-gray-600 mt-1">单位名称</p>
+                    <p class="text-sm text-gray-600 mt-1">日期</p>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <p class="font-bold mb-2">摘要</p>
+                    <p class="text-justify">
+                      本文主要研究了学术论文的格式规范问题，<span class="bg-danger/20 underline text-danger">分析了当前学生在撰写论文过程中常见的格式错误</span>，提出了一系列改进措施。研究表明，使用自动化格式审查工具可以显著提高论文的规范性和质量。
+                    </p>
+                  </div>
+                  
+                  <div class="mb-6">
+                    <p class="font-bold mb-2">关键词</p>
+                    <p>学术论文；格式规范；自动化审查；质量提升</p>
+                  </div>
+                  
+                  <h2 class="text-xl font-bold border-b pb-2 mb-4">1 引言</h2>
+                  
+                  <p class="mb-4">
+                    学术论文是学者传播研究成果、进行学术交流的重要载体。<span class="bg-warning/20 underline text-warning">规范的格式不仅有助于读者理解论文内容</span>，也体现了学术研究的严谨性。然而，目前学生在撰写论文时常常忽略格式规范，导致论文质量参差不齐。
+                  </p>
+                  
+                  <h2 class="text-xl font-bold border-b pb-2 mb-4">2 论文格式规范</h2>
+                  
+                  <h3 class="text-lg font-bold mt-6 mb-3">2.1 基本要求</h3>
+                  
+                  <p class="mb-4">
+                    论文应采用A4纸张，页边距上下各2.5厘米，左右各2厘米。正文文字应使用宋体小四号字，行距为2倍。
+                  </p>
+                  
+                  <h3 class="text-lg font-bold mt-6 mb-3">2.2 标题格式</h3>
+                  
+                  <p class="mb-4">
+                    论文标题应层次分明，<span class="bg-danger/20 underline text-danger">一级标题使用小三号黑体，二级标题使用四号黑体</span>，三级标题使用小四号黑体。所有标题均应居中或左对齐，且序号应规范统一。
+                  </p>
+                  
+                  <div class="mt-8 p-4 bg-gray-50 rounded-lg">
+                    <div class="flex justify-between items-center mb-2">
+                      <div class="font-medium">图2.1：论文格式问题统计</div>
+                      <div class="text-xs text-gray-500">数据来源：本研究</div>
+                    </div>
+                    <div class="h-48 bg-gray-100 rounded flex items-center justify-center">
+                      <i class="fa fa-bar-chart text-gray-400 text-5xl"></i>
+                    </div>
+                  </div>
+                  
+                  <h2 class="text-xl font-bold border-b pb-2 mb-4">3 研究方法</h2>
+                  
+                  <p class="mb-4">
+                    本研究采用文献调研和实证分析相结合的方法，对100篇硕士学位论文进行了格式分析，总结了常见的格式问题及其原因。
+                  </p>
+                  
+                  <h2 class="text-xl font-bold border-b pb-2 mb-4">4 结论</h2>
+                  
+                  <p class="mb-4">
+                    本研究表明，自动化格式审查工具可以有效识别论文中的格式问题，提高审查效率和准确性。建议学校和导师加强对学生论文格式规范的教育，推广使用此类工具。
+                  </p>
+                  
+                  <h2 class="text-xl font-bold border-b pb-2 mb-4">参考文献</h2>
+                  
+                  <ul class="list-none space-y-2">
+                    <li class="mb-2">
+                      [1] 张三, 李四. 学术论文写作指南[M]. 出版社名称, 出版年份.
+                    </li>
+                    <li class="mb-2">
+                      [2] Wang, X., &amp; Li, Y. (2020). Research on academic paper formatting standards. Journal of Academic Writing, 15(2), 45-60.
+                    </li>
+                    <li class="mb-2">
+                      [3] 教育部. 高等学校哲学社会科学研究学术规范(试行)[S]. 北京: 高等教育出版社, 2004.
+                    </li>
+                    <li class="mb-2 bg-danger/20">
+                      [4] Zhang, L., &amp; Chen, M. "An analysis of formatting errors in student papers." Proceedings of the 2021 International Conference on Education and Teaching Innovation (pp. 345-350).
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 上传和使用区域 -->
+  <section id="upload" class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">开始使用系统</h2>
+        <p class="text-gray-600 text-lg">上传你的标准模板和论文，获取专业的格式审查报告</p>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden max-w-4xl mx-auto">
+        <div class="p-6 md:p-8">
+          <div class="flex flex-col md:flex-row gap-8">
+            <!-- 左侧上传区 -->
+            <div class="md:w-1/2">
+              <h3 class="text-xl font-bold text-dark mb-6">上传文件</h3>
+              
+              <div class="space-y-6">
+                <!-- 标准模板上传 -->
+                <div>
+                  <label class="block text-gray-700 font-medium mb-2">标准模板</label>
+                  <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors cursor-pointer" id="template-dropzone">
+                    <i class="fa fa-file-word-o text-gray-400 text-4xl mb-3"></i>
+                    <p class="text-gray-500 mb-2">拖放模板文件到此处，或点击上传</p>
+                    <p class="text-xs text-gray-400">支持 .docx 格式文件</p>
+                    <input type="file" class="hidden" id="template-input" accept=".docx">
+                  </div>
+                </div>
+                
+                <!-- 学生论文上传 -->
+                <div>
+                  <label class="block text-gray-700 font-medium mb-2">学生论文</label>
+                  <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors cursor-pointer" id="thesis-dropzone">
+                    <i class="fa fa-file-word-o text-gray-400 text-4xl mb-3"></i>
+                    <p class="text-gray-500 mb-2">拖放论文文件到此处，或点击上传</p>
+                    <p class="text-xs text-gray-400">支持 .docx 格式文件</p>
+                    <input type="file" class="hidden" id="thesis-input" accept=".docx"><input type="file" class="hidden" id="thesis-input" accept=".docx">
+                  </div>
+                </div>
+                
+                <!-- 高级选项 -->
+                <div class="bg-gray-50 rounded-lg p-4">
+                  <h4 class="font-medium text-gray-800 mb-3">高级选项</h4>
+                  <div class="space-y-2">
+                    <label class="flex items-center">
+                      <input type="checkbox" class="form-checkbox h-5 w-5 text-primary rounded">
+                      <span class="ml-2 text-gray-700">忽略无关格式差异</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="checkbox" class="form-checkbox h-5 w-5 text-primary rounded">
+                      <span class="ml-2 text-gray-700">生成详细对比报告</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="checkbox" class="form-checkbox h-5 w-5 text-primary rounded">
+                      <span class="ml-2 text-gray-700">保存审查历史记录</span>
+                    </label>
+                  </div>
+                </div>
+                
+                <!-- 审查按钮 -->
+                <button class="w-full py-3 bg-primary hover:bg-primary/90 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 flex items-center justify-center">
+                  <i class="fa fa-check-square-o mr-2"></i>
+                  开始格式审查
+                </button>
+              </div>
+            </div>
+            
+            <!-- 右侧说明区 -->
+            <div class="md:w-1/2 bg-gray-50 rounded-xl p-6">
+              <h3 class="text-xl font-bold text-dark mb-6">格式要求说明</h3>
+              
+              <div class="space-y-6">
+                <div>
+                  <h4 class="font-bold text-gray-800 mb-2">字体要求</h4>
+                  <ul class="list-disc list-inside text-gray-600 space-y-1">
+                    <li>标题：中文使用黑体，英文使用Arial</li>
+                    <li>正文：中文使用宋体，英文使用Times New Roman</li>
+                    <li>摘要：中文使用黑体，英文使用Arial</li>
+                    <li>关键词：中文使用宋体加粗，英文使用Times New Roman加粗</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 class="font-bold text-gray-800 mb-2">字号要求</h4>
+                  <ul class="list-disc list-inside text-gray-600 space-y-1">
+                    <li>一级标题：小三号</li>
+                    <li>二级标题：四号</li>
+                    <li>三级标题：小四号</li>
+                    <li>正文：小四号</li>
+                    <li>摘要：小四号</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 class="font-bold text-gray-800 mb-2">段落格式</h4>
+                  <ul class="list-disc list-inside text-gray-600 space-y-1">
+                    <li>段落间距：2倍行距</li>
+                    <li>首行缩进：2个字符</li>
+                    <li>对齐方式：两端对齐</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 class="font-bold text-gray-800 mb-2">图表和公式</h4>
+                  <ul class="list-disc list-inside text-gray-600 space-y-1">
+                    <li>图表标题：小五号宋体</li>
+                    <li>图表编号：应连续且规范</li>
+                    <li>公式编号：右对齐，小括号包裹</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 class="font-bold text-gray-800 mb-2">参考文献</h4>
+                  <ul class="list-disc list-inside text-gray-600 space-y-1">
+                    <li>采用GB/T 7714-2015格式</li>
+                    <li>中文文献：宋体小五号</li>
+                    <li>英文文献：Times New Roman小五号</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于区域 -->
+  <section id="about" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">关于我们</h2>
+          <p class="text-gray-600 text-lg">了解更多关于学术论文格式审查系统的信息</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div>
+            <h3 class="text-xl font-bold text-dark mb-4">系统简介</h3>
+            <p class="text-gray-600 mb-4">
+              学术论文格式审查系统是一款专为高校师生设计的专业工具，旨在帮助学生快速检查论文格式是否符合学校和学术期刊的要求，提高论文质量和规范性。
+            </p>
+            <p class="text-gray-600 mb-4">
+              系统通过智能分析技术，能够自动识别并标记论文中的格式问题，包括字体、字号、段落间距、标题层级、图表格式、参考文献等方面的错误，大大减轻了人工审查的工作量。
+            </p>
+            <p class="text-gray-600">
+              无论是本科生、硕士生还是博士生，都可以通过我们的系统快速完成论文格式的自我检查，确保论文在内容和形式上都达到高质量标准。
+            </p>
+          </div>
+          
+          <div>
+            <h3 class="text-xl font-bold text-dark mb-4">系统优势</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mt-1 mr-3 flex-shrink-0">
+                  <i class="fa fa-check text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-800">高效准确</h4>
+                  <p class="text-gray-600 text-sm">自动检测并标记格式问题，避免人工审查的疏漏和耗时</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mt-1 mr-3 flex-shrink-0">
+                  <i class="fa fa-check text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-800">全面细致</h4>
+                  <p class="text-gray-600 text-sm">覆盖论文各部分格式要求，提供详细的问题分析和修改建议</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mt-1 mr-3 flex-shrink-0">
+                  <i class="fa fa-check text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-800">易于使用</h4>
+                  <p class="text-gray-600 text-sm">简单直观的界面设计，无需专业知识，轻松完成格式审查</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mt-1 mr-3 flex-shrink-0">
+                  <i class="fa fa-check text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-800">高度可定制</h4>
+                  <p class="text-gray-600 text-sm">支持上传自定义格式模板，适应不同学校和期刊的要求</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mt-1 mr-3 flex-shrink-0">
+                  <i class="fa fa-check text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-800">安全可靠</h4>
+                  <p class="text-gray-600 text-sm">严格保护用户隐私，所有上传文件仅用于格式审查，不做其他用途</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="bg-gray-50 rounded-xl p-6 text-center">
+          <h3 class="text-xl font-bold text-dark mb-4">联系我们</h3>
+          <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+            如果您有任何问题、建议或合作需求，请随时联系我们。我们的团队将竭诚为您提供支持和服务。
+          </p>
+          <div class="flex flex-wrap justify-center gap-6">
+            <a href="#" class="flex items-center text-gray-600 hover:text-primary transition-colors">
+              <i class="fa fa-envelope-o mr-2 text-xl"></i>
+              <span>support@thesisformat.com</span>
+            </a>
+            <a href="#" class="flex items-center text-gray-600 hover:text-primary transition-colors">
+              <i class="fa fa-phone mr-2 text-xl"></i>
+              <span>+86 123 4567 8901</span>
+            </a>
+            <a href="#" class="flex items-center text-gray-600 hover:text-primary transition-colors">
+              <i class="fa fa-weixin mr-2 text-xl"></i>
+              <span>thesis_format</span>
+            </a>
+            <a href="#" class="flex items-center text-gray-600 hover:text-primary transition-colors">
+              <i class="fa fa-weibo mr-2 text-xl"></i>
+              <span>学术格式审查系统</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <i class="fa fa-graduation-cap text-primary text-2xl"></i>
+            <h3 class="text-xl font-bold">学术论文格式审查系统</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            专业的论文格式审查工具，帮助学生提高论文质量，确保格式规范。
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+              <i class="fa fa-weixin text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+              <i class="fa fa-weibo text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+              <i class="fa fa-github text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+              <i class="fa fa-envelope-o text-xl"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold mb-4">快速链接</h4>
+          <ul class="space-y-2">
+            <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">功能特点</a></li>
+            <li><a href="#how-it-works" class="text-gray-400 hover:text-white transition-colors">使用指南</a></li>
+            <li><a href="#demo" class="text-gray-400 hover:text-white transition-colors">系统演示</a></li>
+            <li><a href="#upload" class="text-gray-400 hover:text-white transition-colors">开始使用</a></li>
+            <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">关于我们</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold mb-4">帮助中心</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">使用教程</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">格式规范</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">更新日志</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">技术支持</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold mb-4">联系我们</h4>
+          <ul class="space-y-2">
+            <li class="flex items-start">
+              <i class="fa fa-map-marker mt-1 mr-2 text-primary"></i>
+              <span class="text-gray-400">青岛市李沧区青岛恒星科技学院</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-phone mr-2 text-primary"></i>
+              <span class="text-gray-400">+86 123 4567 8901</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-envelope-o mr-2 text-primary"></i>
+              <span class="text-gray-400">support@thesisformat.com</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-clock-o mr-2 text-primary"></i>
+              <span class="text-gray-400">周一至周日 9:00-21:00</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-500 text-sm mb-4 md:mb-0">
+          © 2025 学术论文格式审查系统 版权所有 | 京ICP备12345678号
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">隐私政策</a>
+          <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">使用条款</a>
+          <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">免责声明</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 返回顶部按钮 -->
+  <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 bg-primary text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+
+  <!-- JavaScript -->
+  <script>
+    // 导航菜单切换
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('max-h-0')) {
+        mobileMenu.classList.remove('max-h-0');
+        mobileMenu.classList.add('max-h-96');
+      } else {
+        mobileMenu.classList.remove('max-h-96');
+        mobileMenu.classList.add('max-h-0');
+      }
+    });
+    
+    // 滚动时导航栏样式变化
+    const navbar = document.getElementById('navbar');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('py-2');
+        navbar.classList.add('shadow-lg');
+      } else {
+        navbar.classList.remove('py-2');
+        navbar.classList.remove('shadow-lg');
+      }
+    });
+    
+    // 返回顶部按钮
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopButton.classList.remove('opacity-0', 'invisible');
+        backToTopButton.classList.add('opacity-100', 'visible');
+      } else {
+        backToTopButton.classList.remove('opacity-100', 'visible');
+        backToTopButton.classList.add('opacity-0', 'invisible');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          // 关闭移动菜单
+          if (!mobileMenu.classList.contains('max-h-0')) {
+            mobileMenu.classList.remove('max-h-96');
+            mobileMenu.classList.add('max-h-0');
+          }
+          
+          // 滚动到目标位置
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // 文件上传演示功能
+    const templateUpload = document.getElementById('template-upload');
+    const thesisUpload = document.getElementById('thesis-upload');
+    const templateInfo = document.getElementById('template-info');
+    const thesisInfo = document.getElementById('thesis-info');
+    const templateFilename = document.getElementById('template-filename');
+    const thesisFilename = document.getElementById('thesis-filename');
+    const removeTemplate = document.getElementById('remove-template');
+    const removeThesis = document.getElementById('remove-thesis');
+    const startCheck = document.getElementById('start-check');
+    
+    templateUpload.addEventListener('change', function() {
+      if (this.files.length > 0) {
+        templateFilename.textContent = this.files[0].name;
+        templateInfo.classList.remove('hidden');
+      }
+    });
+    
+    thesisUpload.addEventListener('change', function() {
+      if (this.files.length > 0) {
+        thesisFilename.textContent = this.files[0].name;
+        thesisInfo.classList.remove('hidden');
+      }
+    });
+    
+    removeTemplate.addEventListener('click', function() {
+      templateUpload.value = '';
+      templateInfo.classList.add('hidden');
+    });
+    
+    removeThesis.addEventListener('click', function() {
+      thesisUpload.value = '';
+      thesisInfo.classList.add('hidden');
+    });
+    
+    startCheck.addEventListener('click', function() {
+      if (!templateUpload.value || !thesisUpload.value) {
+        alert('请上传标准模板和学生论文文件');
+        return;
+      }
+      
+      // 模拟审查过程
+      this.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>正在审查...';
+      this.disabled = true;
+      
+      setTimeout(() => {
+        this.innerHTML = '<i class="fa fa-check-square-o mr-2"></i>开始格式审查';
+        this.disabled = false;
+        
+        // 滚动到结果区域
+        document.querySelector('#demo').scrollIntoView({
+          behavior: 'smooth'
+        });
+      }, 2000);
+    });
+    
+    // 拖放上传区域
+    const templateDropzone = document.getElementById('template-dropzone');
+    const thesisDropzone = document.getElementById('thesis-dropzone');
+    const templateInput = document.getElementById('template-input');
+    const thesisInput = document.getElementById('thesis-input');
+    
+    templateDropzone.addEventListener('click', () => {
+      templateInput.click();
+    });
+    
+    thesisDropzone.addEventListener('click', () => {
+      thesisInput.click();
+    });
+    
+    templateInput.addEventListener('change', function() {
+      if (this.files.length > 0) {
+        templateDropzone.innerHTML = `
+          <i class="fa fa-file-word-o text-primary text-4xl mb-3"></i>
+          <p class="text-gray-700 mb-2 font-medium">${this.files[0].name}</p>
+          <p class="text-xs text-gray-500">点击更换文件</p>
+        `;
+      }
+    });
+    
+    thesisInput.addEventListener('change', function() {
+      if (this.files.length > 0) {
+        thesisDropzone.innerHTML = `
+          <i class="fa fa-file-word-o text-primary text-4xl mb-3"></i>
+          <p class="text-gray-700 mb-2 font-medium">${this.files[0].name}</p>
+          <p class="text-xs text-gray-500">点击更换文件</p>
+        `;
+      }
+    });
+    
+    // 模拟Word文档解析功能
+    function parseWordDocument(file, callback) {
+      // 实际应用中会使用mammoth.js等库解析Word文档
+      // 这里仅作演示
+      setTimeout(() => {
+        callback({
+          success: true,
+          content: '<div class="document-content">解析后的文档内容</div>'
+        });
+      }, 1500);
+    }
+  </script>
+
+
+    </body></html>
